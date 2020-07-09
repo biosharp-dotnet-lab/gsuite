@@ -1,12 +1,16 @@
+&nbsp;
 # Specification of the GSuite file format
+&nbsp;
 
 - **GSuite version:** 0.9
-- **Document version:** 0.3
+- **Document version:** 1.0a
 - **Date:** May 27, 2015
 - **Authors:** Sveinung Gundersen, Boris Simovski, Abdulrahman Azab, Diana
   Domanska, Eivind Hovig, and Geir Kjetil Sandve
 
+
 ## Contents
+&nbsp;
 
 - [A. Introduction and background](#a-introduction-and-background)
   - [A.1 Overview](#a1-overview)
@@ -27,11 +31,16 @@
 - [D. References](#d-references)
 - [E. Change log](#e-change-log)
 
-## A. Introduction and background
 
+&nbsp;
+## A. Introduction and background
+&nbsp;
 _(Return to: [Contents](#contents))_
 
+
+&nbsp;
 ### A.1 Overview
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
@@ -45,7 +54,10 @@ type concept), as well as the reference genome build that the track coordinates
 are based upon. In addition to this, the user may add as many custom metadata
 columns he/she needs.
 
+
+&nbsp;
 ### A.2 Suites of tracks
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
@@ -66,22 +78,28 @@ this particular aspect, the header variable is set to the reserved keyword
 "multiple". This typically indicates that the collection of tracks is not yet
 focused enough to be usable as a suite of tracks for analysis purposes.
 
-# A.3 Location of tracks
+
+&nbsp;
+### A.3 Location of tracks
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
 In order to analyze multiple tracks, one obviously needs to acquire such
 tracks. Some tracks one might have acquired directly from sequencing endeavors
 (e.g. ChIP-seq peaks), but often one needs to fetch such tracks from public
-repositories and databases such as those provided by the ENCODE [1] and Roadmap
-Epigenomics [2] projects. GSuite supports the specification of suites of tracks
-before the actual track files has been retrieved from a server. In such cases,
-the location of the tracks are termed "remote" and the GSuite file would
-typically contain an HTTP or FTP address to the remote location. Tracks that
-have been retrieved and is stored at the same place as the GSuite file are
-termed as "local".
+repositories and databases such as those provided by the ENCODE
+[1](#d-references) and Roadmap Epigenomics [2](#d-references) projects. GSuite
+supports the specification of suites of tracks before the actual track files
+has been retrieved from a server. In such cases, the location of the tracks are
+termed "remote" and the GSuite file would typically contain an HTTP or FTP
+address to the remote location. Tracks that have been retrieved and is stored
+at the same place as the GSuite file are termed as "local".
 
+
+&nbsp;
 ### A.4 Preprocessing of tracks into a binary format (BTrack)
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
@@ -103,7 +121,8 @@ format. BTrack is a binary format for genomic tracks that allows for fast
 retrieval and efficient analyses by the storage of data columns as numeric
 arrays. An analogue to the BTrack format in the domain of sequence alignment is
 the BAM format, which is a binary version of the textual SAM format. BTrack is
-thus the binary version of the previously published GTrack format [3].
+thus the binary version of the previously published GTrack format
+[3](#d-references).
 
 BTrack is the new name for the previously unnamed internal track storage format
 used in the Genomic HyperBrowser [3,4]. The BTrack format has seen several
@@ -113,26 +132,29 @@ in a single binary file (currently unpublished). The GSuite format is
 intimately linked to the BTrack format, as a BTrack file would be able to store
 both a GSuite file together with the actual track contents.
 
+
+&nbsp;
 ### A.5 Track types
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
 The concept of track types has been examined in detail in a previous
-publication [2]. Briefly, a track type is a characterization of a the
-geometrical/mathematical properties of a track. A track is typically envisioned
-as data somehow located along the DNA sequence of a particular reference
-genome. The simplest track type is "points", which refer to single base pairs
-scattered along the genome, e.g. SNPs. "Segments" are the more common ones,
-which represents regions of the DNA, e.g. genes. With the addition of values
-and/or cross-genomic links, a total of 15 track types was delineated in [3].
-The main usage scenario of track types is to limit which tracks it makes sense
-to use as input to a particular analysis tool. For example, an analysis of the
-base pair overlap of two tracks would typically require the tracks to be of
-type "segments". When it comes to the analysis of multiple tracks, one would
-typically require the tracks to be analyzed to be of the same track type. The
-GSuite format thus supports "track type" as one of the main header variables
-(see below). The following is a list of all the supported 15 track types, as
-delineated in [3]:
+publication [2](#d-references). Briefly, a track type is a characterization of
+a the geometrical/mathematical properties of a track. A track is typically
+envisioned as data somehow located along the DNA sequence of a particular
+reference genome. The simplest track type is "points", which refer to single
+base pairs scattered along the genome, e.g. SNPs. "Segments" are the more
+common ones, which represents regions of the DNA, e.g. genes. With the addition
+of values and/or cross-genomic links, a total of 15 track types was delineated
+in [3](#d-references). The main usage scenario of track types is to limit which
+tracks it makes sense to use as input to a particular analysis tool. For
+example, an analysis of the base pair overlap of two tracks would typically
+require the tracks to be of type "segments". When it comes to the analysis of
+multiple tracks, one would typically require the tracks to be analyzed to be of
+the same track type. The GSuite format thus supports "track type" as one of the
+main header variables (see below). The following is a list of all the supported
+15 track types, as delineated in [3](#d-references):
 
 - Points (P)
 - Valued Points (VP)
@@ -150,14 +172,20 @@ delineated in [3]:
 - Linked Function (LF)
 - Linked Base Pairs (LBP)
 
+
+&nbsp;
 ## B. Example GSuite files
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
 Before going into the details of the GSuite format, one should be able to get a
 quick overview of the format by looking at these example files:
 
+
+&nbsp;
 ### B.1 Example 1
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
@@ -170,7 +198,10 @@ http://www.server2.com/path/to/other_file.bed
 ftp://www.server3.com/path/to/new_file.wig
 ```
 
+
+&nbsp;
 ### B.2 Example 2
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
@@ -188,7 +219,10 @@ http://www.server2.com/path/to/other_file.bed
 ftp://www.server3.com/path/to/new_file.gff
 ```
 
+
+&nbsp;
 ### B.3 Example 3
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
@@ -216,7 +250,10 @@ hb:/my/track/name                                track_6    .
   This example text has been formatted in columns using spaces, not tabs, as
   required by the GSuite format.
 
+
+&nbsp;
 ## C. Syntax of the GSuite format
+&nbsp;
 
 _(Return to: [Contents](#contents))_
 
@@ -225,42 +262,60 @@ GSuite is a tabular text file format. All GSuite filenames should end with
 by the leading characters and numbered here by order of appearance in the file:
 
 - [C.i Empty lines](#ci-empty-lines)
-  - [C.i.1 Leading characters](#_ci1-leading-characters_)
-  - [C.i.2 Syntax](#ci1-syntax)
-  - [C.i.3 Example](#ci1-example)
-  - [C.i.4 Usage](#ci1-usage)
-  - [C.i.5 Description](#ci1-description)
+  - [_C.i.1 Leading characters_](#_ci1-leading-characters_)
+  - [_C.i.2 Syntax_](#_ci2-syntax_)
+  - [_C.i.3 Usage_](#_ci3-usage_)
+  - [_C.i.4 Description_](#_ci4-description_)
 - [C.ii Comment lines](#cii-comment-lines)
-  - [C.ii.1 Leading characters](#cii1-leading-characters)
-  - [C.ii.2 Syntax](#cii2-syntax)
-  - [C.ii.3 Example](#cii3-example)
-  - [C.ii.4 Usage](#cii4-usage)
-  - [C.ii.5 Description](#cii5-description)
+  - [_C.ii.1 Leading characters_](#_cii1-leading-characters_)
+  - [_C.ii.2 Example_](#_cii2-example_)
+  - [_C.ii.3 Usage_](#_cii3-usage_)
+  - [_C.ii.4 Description_](#_cii4-description_)
 - [C.1 Header lines](#c1-header-lines)
-  - [C.1.1 Leading characters](#c11-leading-characters)
-  - [C.1.2 Syntax](#c12-syntax)
-  - [C.1.3 Example](#c13-example)
-  - [C.1.4 Usage](#c14-usage)
-  - [C.1.5 Description](#c15-description)
-  - [C.1.6 Reserved header variable names](#c16-reserved-header-variable-names)
-  - [C.1.7 Parser notes](#c17-parser-notes)
+  - [_C.1.1 Leading characters_](#_c11-leading-characters_)
+  - [_C.1.2 Syntax_](#_c12-syntax_)
+  - [_C.1.3 Example_](#_c13-example_)
+  - [_C.1.4 Usage_](#_c14-usage_)
+  - [_C.1.5 Description_](#_c15-description_)
+  - [_C.1.6 Reserved header variable names_](#_c16-reserved-header-variable-names_)
+  - [_C.1.7 Parser notes_](#_c17-parser-notes_)
 - [C.2 Column specification line](#c2-column-specification-line)
-  - [C.2.1 Leading characters](#c21-leading-characters)
-  - [C.2.2 Syntax](#c22-syntax)
-  - [C.2.3 Example](#c23-example)
-  - [C.2.4 Default value](#c24-default-value)
-  - [C.2.5 Usage](#c25-usage)
-  - [C.2.5 Description](#c26-description)
-  - [C.2.7 Reserved column names](#c27-reserved-column-names)
-  - [C.2.8 Optional columns](#c28-optional-columns)
-  - [C.2.9 Parser notes](#c29-parser-notes)
-- [C.3 Track lines](#3-track-lines)
+  - [_C.2.1 Leading characters_](#_c21-leading-characters_)
+  - [_C.2.1 Syntax_](#_c21-syntax_)
+  - [_C.2.2 Example_](#_c22-example_)
+  - [_C.2.3 Default value_](#_c23-default-value_)
+  - [_C.2.4 Usage_](#_c24-usage_)
+  - [_C.2.5 Description_](#_c25-description_)
+  - [_C.2.6 Reserved column names_](#_c26-reserved-column-names_)
+    - [_C.2.6.1 `uri`_](#_c261-uri_)
+    - [_C.2.6.1.1 Remote URI schemes_](#_c2611-remote-uri-schemes_)
+    - [_C.2.6.1.2 Local URI schemes_](#_c2612-local-uri-schemes_)
+    - [_C.2.6.1.2.1 `file`_](#_c26121-file_)
+    - [_C.2.6.1.2.2 `galaxy`_](#_c26122-galaxy_)
+    - [_C.2.6.1.2.3 `hb`_](#_c26123-hb_)
+    - [_C.2.6.2 `title`_](#_c262-title_)
+    - [_C.2.6.3 `file_format`_](#_c263-file_format_)
+    - [_C.2.6.4 `track_type`_](#_c264-track_type_)
+    - [_C.2.6.5 `genome`_](#_c265-genome_)
+    - [_C.2.6.5 Custom columns_](#_c265-custom-columns_)
+  - [_C.2.7 Optional columns_](#_c27-optional-columns_)
+  - [_C.2.8 Parser notes_](#_c28-parser-notes_)
+- [C.3 Track lines](#c3-track-lines)
+  - [_C.3.2 Leading characters_](#_c32-leading-characters_)
+  - [_C.3.3 Syntax_](#_c33-syntax_)
+  - [_C.3.4 Example_](#_c34-example_)
+  - [_C.3.5 Usage_](#_c35-usage_)
+  - [_C.3.6 Description_](#_c36-description_)
+
+
+
 
 _Note_:  
 The arabic number preceding each line type defines the order in which the lines
 must be present: i.e., the column specification line (C.2) must follow the
 header lines (C.1). Roman numbers indicate comments and emtpy lines, which may
 be present anywhere.
+
 
 &nbsp;
 ### C.i Empty lines
@@ -269,12 +324,14 @@ be present anywhere.
 _(Return to: [Contents](#contents)) /
 [C. Syntax of the GSuite format](#c-syntax-of-the-gsuite-format))_
 
+
 &nbsp;
 #### _C.i.1 Leading characters_
 &nbsp;
 ```
 (none)
 ```
+
 
 &nbsp;
 #### _C.i.2 Syntax_
@@ -283,23 +340,34 @@ _(Return to: [Contents](#contents)) /
 only whitespace characters (space, tab, newline, return)
 ```
 
+
+&nbsp;
 #### _C.i.3 Usage_
+&nbsp;
 
 _optional_
 
 
+&nbsp;
 #### _C.i.4 Description_
+&nbsp;
 
 Empty lines are allowed anywhere in the GSuite file.
 
 These will be ignored by the parsers
 
+
+&nbsp;
 ### C.ii Comment lines
+&nbsp;
 
 _(Return to: [Contents](#contents) /
 [C. Syntax of the GSuite format](#c-syntax-of-the-gsuite-format))_
 
+
+&nbsp;
 #### _C.ii.1 Leading characters_
+&nbsp;
 
 ```
 #
@@ -307,32 +375,52 @@ _(Return to: [Contents](#contents) /
 
 (a single hash character)
 
+
+&nbsp;
 #### _C.ii.2 Example_
+&nbsp;
 
 ```
 # this is a comment
 ```
 
-#### _C.ii.3 Usage_ optional
 
-#### _C.ii.4 Description_ Comments are allowed anywhere and will be ignored by
+&nbsp;
+#### _C.ii.3 Usage_
+&nbsp;
 
-parsers. Note that a comment line following a track line is considered to be a
-comment for that track and can for instance be used by tools that creates
-GSuite files to present track-specific error messages to the user.
+optional
 
+
+&nbsp;
+#### _C.ii.4 Description_
+&nbsp;
+
+Comments are allowed anywhere and will be ignored by parsers. Note that
+a comment line following a track line is considered to be a comment for that
+track and can for instance be used by tools that creates GSuite files to
+present track-specific error messages to the user.
+
+
+&nbsp;
 ### C.1 Header lines
+&nbsp;
 
 _(Return to: [Contents](#contents) /
 [C. Syntax of the GSuite format](#c-syntax-of-the-gsuite-format))_
 
+
+&nbsp;
 #### _C.1.1 Leading characters_
+&nbsp;
 
 ```
 ##
 ```
 
+&nbsp;
 #### _C.1.2 Syntax_
+&nbsp;
 
 ```
 ##variable:[ ]*value
@@ -343,7 +431,10 @@ _(Return to: [Contents](#contents) /
   - `[ ]*` = Optional space characters
   - `value` = Header variable value
 
+
+&nbsp;
 #### _C.1.3 Example_
+&nbsp;
 
 ```
 ##location: local
@@ -352,21 +443,31 @@ _(Return to: [Contents](#contents) /
 ##genome: hg38
 ```
 
-#### _C.1.4 Usage_ optional in an input GSuite file, but auto-generated when a
+&nbsp;
+#### _C.1.4 Usage_
+&nbsp;
 
-GSuite is created as output from a tool
+optional in an input GSuite file, but auto-generated when a GSuite is created
+as output from a tool
 
-#### _C.1.5 Description_ A header variable contains information that relates to
 
-the whole of the GSuite file, and is thus a summary over all the tracks in the
-file. The header variables names are limited to a set of reserved keywords,
-each with a restricted set of values. The header variables are related to
-reserved columns of the track lines (see the section "Column specification
-line" below).
+&nbsp;
+#### _C.1.5 Description_
+&nbsp;
 
-#### _C.1.6 Reserved header variable names_ The following header variable names
+A header variable contains information that relates to the whole of the GSuite
+file, and is thus a summary over all the tracks in the file. The header
+variables names are limited to a set of reserved keywords, each with a
+restricted set of values. The header variables are related to reserved columns
+of the track lines (see the section "Column specification line" below).
 
-have reserved meaning, and are the only headers allowed by the GSuite format:
+
+&nbsp;
+#### _C.1.6 Reserved header variable names_
+&nbsp;
+
+The following header variable names have reserved meaning, and are the only
+headers allowed by the GSuite format:
 
     `location`  
     `file format`  
@@ -375,7 +476,11 @@ have reserved meaning, and are the only headers allowed by the GSuite format:
 
 In the following, the reserved header variables are described in detail:
 
-- `location`:  
+
+&nbsp;
+##### _C.1.6.1 `location`_
+&nbsp;
+
   Specifies whether the data contents of all tracks in the GSuite are found at
   remote locations on the Internet, or if they have been downloaded locally to
   the service parsing the GSuite file (see section "Location of tracks" above).
@@ -394,7 +499,11 @@ In the following, the reserved header variables are described in detail:
   `local`  
   `multiple`
 
-- `file format`:  
+
+&nbsp;
+##### _C.1.6.2 `file format`_
+&nbsp;
+
   Specifies whether all tracks have been preprocessed into the binary format
   BTrack, which is a prerequisite for most analysis tools. The `file format`
   header variable is a summary of the contents of the `file_format` column in
@@ -406,7 +515,11 @@ In the following, the reserved header variables are described in detail:
   `preprocessed`  
   `multiple`
 
-- `track type`:  
+
+&nbsp;
+##### _C.1.6.3 `track type`_
+&nbsp;
+
   Specifies the track type common for all the tracks in the GSuite file, if
   any. See the section "Track types" above for more information. The `track
   type` header variable is a summary of the contents of the `track_type` column
@@ -438,7 +551,11 @@ In the following, the reserved header variables are described in detail:
   `linked base pairs`  
   `multiple`
 
-- `genome`:  
+
+&nbsp;
+##### _C.1.6.4 `genome`_
+&nbsp;
+
   Specifies the reference genome for all the tracks in the GSuite file. The
   `genome` header variable is a summary of the contents of the `genome` column
   in the track lines (see the section "Column specification line" below. The
@@ -451,12 +568,16 @@ In the following, the reserved header variables are described in detail:
   `multiple`  
   \+ any other string specifying a reference genome assembly
 
-#### _C.1.7 Parser notes_ If a header variable is missing, it will be
 
-auto-generated from the track lines. If a header variable is present, but with
-a value that is inconsistent with the track lines, the parser will return an
-error. Note that all header variable lines except for the "genome" variable
-allow a mix of lower- and uppercase characters.
+&nbsp;
+#### _C.1.7 Parser notes_
+&nbsp;
+
+If a header variable is missing, it will be auto-generated from the track
+lines. If a header variable is present, but with a value that is inconsistent
+with the track lines, the parser will return an error. Note that all header
+variable lines except for the "genome" variable allow a mix of lower- and
+uppercase characters.
 
 The following logic for the values `unknown` and `multiple` will hold for all
 header variables:
@@ -471,18 +592,27 @@ header variables:
   GSuite header variable will be `multiple` (unless the value for one of the
   tracks is `unknown`, in which case that keyword takes precedence).
 
+
+&nbsp;
 ### C.2 Column specification line
+&nbsp;
 
 _(Return to: [Contents](#contents) /
 [C. Syntax of the GSuite format](#c-syntax-of-the-gsuite-format))_
 
+
+&nbsp;
 #### _C.2.1 Leading characters_
+&nbsp;
 
 ```
 ###
 ```
 
+
+&nbsp;
 #### _C.2.1 Syntax_
+&nbsp;
 
 ```
 ###col1    col2    col3...
@@ -492,7 +622,10 @@ _(Return to: [Contents](#contents) /
   - `col1`, `col2`, `col3` = Column names
   - `" "` = tab character
 
+
+&nbsp;
 #### _C.2.2 Example_
+&nbsp;
 
 ```
 ###uri   title   file_format   track_type   genome   description   p-value
@@ -500,25 +633,38 @@ _(Return to: [Contents](#contents) /
 
 (here: spaces instead of tabs)
 
+
+&nbsp;
 #### _C.2.3 Default value_
+&nbsp;
 
 ```
 ###uri
 ```
 
-#### _C.2.4 Usage_ Optional, but if not defined the column specification line
 
-retains the default value. This means that a list of URI's is a valid GSuite
-file.
+&nbsp;
+#### _C.2.4 Usage_
+&nbsp;
 
-#### _C.2.5 Description_ The column specification line is a tab-separated list
+Optional, but if not defined the column specification line retains the default
+value. This means that a list of URI's is a valid GSuite file.
 
-of column names, containing metadata information about the tracks in the track
-suite defined i a GSuite file.
 
-#### _C.2.6 Reserved column names_ The GSuite specification defines a set of
+&nbsp;
+#### _C.2.5 Description_
+&nbsp;
 
-five reserved column names:
+The column specification line is a tab-separated list of column names,
+containing metadata information about the tracks in the track suite defined i a
+GSuite file.
+
+
+&nbsp;
+#### _C.2.6 Reserved column names_
+&nbsp;
+
+The GSuite specification defines a set of five reserved column names:
 
     `uri`  
     `title`  
@@ -531,10 +677,18 @@ representing varied types of metadata available for the tracks.
 
 In the following, the reserved column names are described in detail:
 
-##### _C.2.6.1 `uri`_ A unique identifier of a track file, following the
 
-Universal Resource Identifier (URI) format [5]. GSuite supports a diverse set
-of URI schemes:
+&nbsp;
+##### _C.2.6.1 `uri`_
+&nbsp;
+
+A unique identifier of a track file, following the Universal Resource
+Identifier (URI) format [5](#d-references). GSuite supports a diverse set of URI schemes:
+
+
+&nbsp;
+##### _C.2.6.1.1 Remote URI schemes_
+&nbsp;
 
 - URI schemes for data residing at a remote location (i.e., when `location` is
   `remote`):
@@ -552,6 +706,11 @@ of URI schemes:
   rsync://server.com/path/to/file
   ```
 
+
+&nbsp;
+##### _C.2.6.1.2 Local URI schemes_
+&nbsp;
+
 - URI schemes for data residing locally (i.e., when `location` is `local`):
 
   `file`  
@@ -559,6 +718,12 @@ of URI schemes:
   `hb`
 
   defined as follows:
+
+
+&nbsp;
+##### _C.2.6.1.2.1 `file`_
+&nbsp;
+
   - `file`  
     Standard URI schema for local files.
 
@@ -573,11 +738,16 @@ of URI schemes:
     "localhost". The host part of the URI is thus unneeded, hence the triple
     `/` characters.
 
-  - `galaxy`  
+
+&nbsp;
+##### _C.2.6.1.2.2 `galaxy`_
+&nbsp;
+
+-   `galaxy`  
     The `galaxy` scheme uniquely identifies a Galaxy dataset, but currently
     only works for the local installation of the Galaxy analysis framework that
     is set up with GSuite support, i.e. one cannot (yet) provide an URI to a
-    remote Galaxy installation [6]. The
+    remote Galaxy installation [6](#d-references). The
 
     **Syntax:**
 
@@ -589,6 +759,11 @@ of URI schemes:
 
     Multiple files can be stored within one Galaxy history element using the
     directory structure syntax.
+
+
+&nbsp;
+##### _C.2.6.1.2.3 `hb`_
+&nbsp;
 
   - `hb` The "HB" scheme identifies a track stored as the BTrack format within
     the local installation of GSuite HyperBrowser. The syntax is as follows:
@@ -609,13 +784,21 @@ of URI schemes:
   Note that services available from e.g. the web should disable the "file"
   scheme, as this is inherently insecure.
 
-  - Title:
+
+&nbsp;
+##### _C.2.6.2 `title`_
+&nbsp;
 
     The title of the track, as specified by the user. Each track title must be
     unique within a specific GSuite, so that one may use the title as a key to
     uniquely reference specific tracks in a GSuite.
 
     Allowed values: *any*
+
+
+&nbsp;
+##### _C.2.6.3 `file_format`_
+&nbsp;
 
   - `File_format`:
 
@@ -631,6 +814,10 @@ of URI schemes:
 
     Default value: `unknown`
 
+
+&nbsp;
+##### _C.2.6.4 `track_type`_
+&nbsp;
   - `Track_type`:
 
     Specifies the track type of the track, as described in the section "Header
@@ -646,6 +833,11 @@ of URI schemes:
 
     Default value: `unknown`
 
+
+&nbsp;
+##### _C.2.6.5 `genome`_
+&nbsp;
+
   - `Genome`:
 
     Specifies the reference genome build used as basis of the track, as
@@ -655,6 +847,11 @@ of URI schemes:
 
     Default value: `unknown`
 
+
+&nbsp;
+##### _C.2.6.5 Custom columns_
+&nbsp;
+
   - Custom columns
 
     Any number of custom columns can be added. Any string can be used as value
@@ -662,45 +859,90 @@ of URI schemes:
     within the GSuite format. Missing values for custom columns are denoted
     with the period character: '.'
 
-#### Optional columns
+
+&nbsp;
+#### _C.2.7 Optional columns_
+&nbsp;
 
 If the value in the "file_format" column is the same for all tracks in a
 GSuite, the column can be removed, leaving only the value of the "file format"
 header variable to speak for all individual tracks. The same logic holds also
 for the columns "track_type" and "genome".
 
-#### Parser notes
 
-Column names are treated as case insensitive. All column names must also be
-unique. The columns can be ordered in any way, but it is recommended for
+&nbsp;
+#### _C.2.8 Parser notes_
+&nbsp;
+
+Column names are treated as case insensitive. All column names must also
+be unique. The columns can be ordered in any way, but it is recommended for
 readability to use "uri" and "title" as the first two rows, if defined.
 
-_(Return to: [Contents](#contents) /
-[C. Syntax of the GSuite format](#c-syntax-of-the-gsuite-format))_
 
+&nbsp;
 ### C.3 Track lines
-
-- Leading characters: none
-- Syntax: `val1 val2 val3...` where `val1, val2, val3 = column values` `" "` =
-  tab character
-- Example:
-
-  | uri                                    | title         | p-value |
-  |:---------------------------------------|:--------------|:--------|
-  | http://www.server.com/path/to/file.bed | My cool track | 0.00013 |
-
-  (with tabs instead of spaces)
-- Usage Track lines are optional. If no track lines are specified, the GSuite
-  file represents an empty collection of tracks.
-- Description Each track is specified as a tab-separated list of metadata
-  values, as defined by the column specification line. See the section ["Column
-  specification line: Reserved column names"](#) for a more detailed discussion
-  on the allowed values.
+&nbsp;
 
 _(Return to: [Contents](#contents) /
 [C. Syntax of the GSuite format](#c-syntax-of-the-gsuite-format))_
 
+
+
+&nbsp;
+#### _C.3.2 Leading characters_
+&nbsp;
+```
+(none)
+```
+
+
+&nbsp;
+#### _C.3.3 Syntax_
+&nbsp;
+```
+val1 val2 val3...
+```
+where
+- `val1, val2, val3` = column values
+- `" "` = tab character
+
+
+&nbsp;
+#### _C.3.4 Example_
+&nbsp;
+
+```
+###uri                                  title          p-value
+http://www.server.com/path/to/file.bed  My cool track  0.00013
+```
+
+(here: spaces instead of tabs)
+
+
+&nbsp;
+#### _C.3.5 Usage_
+&nbsp;
+
+Track lines are optional. If no track lines are specified, the GSuite file
+represents an empty collection of tracks.
+
+
+
+&nbsp;
+#### _C.3.6 Description_
+&nbsp;
+
+Each track is specified as a tab-separated list of metadata values, as defined
+by the column specification line. See the section
+["C.2.6 Reserved column names"](#_c26-reserved-column-names_)
+for a more detailed discussion on the allowed values.
+
+
+&nbsp;
 ## D. References
+&nbsp;
+
+_(Return to: [Contents](#contents)_
 
 1. ENCODE Project Consortium. "An integrated encyclopedia of DNA elements in
    the human genome." _Nature_ 489.7414 (2012): 57-74.
@@ -717,9 +959,12 @@ _(Return to: [Contents](#contents) /
    computational research in the life sciences." _Genome Biology_ 11.8 (2010):
    R86.
 
-_(Return to: [Contents](#contents))_
 
+&nbsp;
 ## E. Change log
+&nbsp;
+
+_(Return to: [Contents](#contents)_
 
 v0.1 - 2015.07.06:
 
@@ -735,4 +980,7 @@ v0.3 - 2018.05.23:
 * Converted specification to Markdown
 * Smaller changes in formatting and wording
 
-_(Return to: [Contents](#contents))_
+v1.0a - 2020.07.13:
+
+* Heavy cleanup and reformatting of Markdown
+* Still quite a bit of cleanup to do in the syntax section
