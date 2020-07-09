@@ -261,6 +261,14 @@ GSuite is a tabular text file format. All GSuite filenames should end with
 ".gsuite". The GSuite format consists of 5 different line types, distinguished
 by the leading characters and numbered here by order of appearance in the file:
 
+- [A.1 Overview](#a1-overview)
+- [A.2 Suites of tracks](#a2-suites-of-tracks)
+- [A.3 Location of tracks](#a3-location-of-tracks)
+- [A.4 Preprocessing of tracks into a binary format (BTrack)](#a4-preprocessing-of-tracks-into-a-binary-format-btrack)
+- [A.5 Track types](#a5-track-types)
+- [B.1 Example 1](#b1-example-1)
+- [B.2 Example 2](#b2-example-2)
+- [B.3 Example 3](#b3-example-3)
 - [C.i Empty lines](#ci-empty-lines)
   - [_C.i.1 Leading characters_](#_ci1-leading-characters_)
   - [_C.i.2 Syntax_](#_ci2-syntax_)
@@ -278,6 +286,10 @@ by the leading characters and numbered here by order of appearance in the file:
   - [_C.1.4 Usage_](#_c14-usage_)
   - [_C.1.5 Description_](#_c15-description_)
   - [_C.1.6 Reserved header variable names_](#_c16-reserved-header-variable-names_)
+    - [_C.1.6.1 `location`_](#_c161-location_)
+    - [_C.1.6.2 `file format`_](#_c162-file-format_)
+    - [_C.1.6.3 `track type`_](#_c163-track-type_)
+    - [_C.1.6.4 `genome`_](#_c164-genome_)
   - [_C.1.7 Parser notes_](#_c17-parser-notes_)
 - [C.2 Column specification line](#c2-column-specification-line)
   - [_C.2.1 Leading characters_](#_c21-leading-characters_)
@@ -306,9 +318,6 @@ by the leading characters and numbered here by order of appearance in the file:
   - [_C.3.4 Example_](#_c34-example_)
   - [_C.3.5 Usage_](#_c35-usage_)
   - [_C.3.6 Description_](#_c36-description_)
-
-
-
 
 _Note_:  
 The arabic number preceding each line type defines the order in which the lines
